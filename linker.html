@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vidyard Embed Code Generator</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #EEEEEE;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            width: 80%;
+            max-width: 960px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .material-input {
+            position: relative;
+            padding-top: 20px;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .material-input input,
+        .material-input select {
+            border: none;
+            border-bottom: 2px solid #9E9E9E;
+            font-size: 18px;
+            width: 100%;
+            padding: 10px 5px;
+            outline: none;
+            background: transparent;
+            font-size: 16px;
+
+        }
+
+        .material-input label {
+            position: absolute;
+            top: 0;
+            left: 5px;
+            font-size: 18px;
+            color: #000000;
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .material-input input:focus + label,
+        .material-input input:not(:placeholder-shown) + label,
+        .material-input select:focus + label {
+            top: 0px;
+            font-size: 16px;
+            color: #3F51B5;
+        }
+
+        .material-input input:focus,
+        .material-input select:focus {
+            border-bottom: 2px solid #3F51B5;
+        }
+
+        button {
+            padding: 15px 30px;
+            margin-top: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            outline: none;
+            color: #fff;
+            background-color: #3F51B5;
+            text-transform: uppercase;
+            border-radius: 40px; /* Increase this value for more rounded corners */
+
+        }
+
+        button:hover {
+            background-color: #303F9F;
+        }
+
+        button:active {
+            background-color: #283593;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+
+        #outputArea {
+            width: 100%;
+            height: 200px;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #BDBDBD;
+            border-radius: 4px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            background-color: #FAFAFA;
+            color: #212121;
+        }
+
+        .checkbox-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: start;
+            gap: 20px; /* Adds space between the checkboxes */
+            margin-bottom: 20px; /* Space below the checkbox container */
+        }
+
+        .checkbox-field {
+            display: flex;
+            align-items: center;
+        }
+
+        .color-picker-button {
+            background-color: #FFFFFF;
+            border: 2px solid #9E9E9E;
+            border-radius: 4px;
+            cursor: pointer;
+            height: 36px;
+            width: 100px;
+            margin-right: 10px;
+            font-size: 14px;
+            line-height: 32px;
+            text-align: center;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .color-picker-button:not(.no-color) {
+            color: #FFFFFF;
+        }
+
+        .color-picker-button:focus,
+        .color-picker-button:active {
+            outline: none;
+            border-color: #3F51B5;
+        }
+
+        .hidden-color-input {
+            display: none;
+        }
+
+        .color-input-wrapper {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .color-label {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        .color-input {
+            height: 36px;
+            border: 2px solid #9E9E9E;
+            border-radius: 4px;
+            background-color: #FFFFFF; /* White background to blend with the page */
+            width: 100px;
+            padding: 0;
+            -webkit-appearance: none;
+            outline: none;
+            opacity: 0; /* Make the input invisible */
+            position: absolute; /* Position it out of the normal flow */
+            z-index: -1; /* Place it behind other elements */
+        }
+
+        .color-input-label {
+            display: inline-block;
+            cursor: pointer;
+            height: 36px;
+            line-height: 36px;
+            border: 2px solid #9E9E9E;
+            border-radius: 4px;
+            background-color: #EEEEEE; /* Match the background color */
+            width: 100px;
+            text-align: center;
+            color: black; /* Initial text color */
+        }
+
+        .color-input-wrapper {
+            position: relative; /* Context for absolute positioning */
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .color-label {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        .dropdown-container {
+            display: flex;
+             justify-content: space-between;
+             gap: 10px; /* Adjust the gap size to your preference */
+        }
+        .color-picker-container {
+    display: flex;
+    justify-content: start; /* Align to the start of the container */
+    gap: 10px; /* Space between the color pickers */
+}
+
+.color-input-wrapper {
+    flex-basis: 50%; /* Each color picker takes up half the width */
+}
+
+.color-label {
+    margin-right: 10px;
+    font-size: 18px;
+    white-space: nowrap; /* Prevent the label from wrapping */
+}
+
+.color-input {
+    width: calc(100% - 10px); /* Adjust width accounting for the margin */
+    cursor: pointer;
+    border: 2px solid #9E9E9E;
+    border-radius: 4px;
+    height: 36px;
+}
+.dimensions-container {
+    display: flex;
+    justify-content: start; /* Align to the start of the container */
+    gap: 10px; /* Space between the width and height inputs */
+}
+
+.material-input {
+    flex-basis: 100%; /* Each input takes up half the width */
+    max-width: 100%; /* Prevent the input from exceeding half the container's width */
+}
+
+/* Adjust the width of the input fields within the .material-input div */
+.material-input input {
+    width: calc(100% - 50px); /* Subtracting the padding and borders if any */
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px; /* Adjust as needed */
+}
+
+.vidyard-logo {
+    height: 50px; /* Adjust as needed */
+    width: auto; /* Adjust if you have a specific width in mind */
+}
+
+/* Style for the heading */
+.header h1 {
+    font-size: 36px;
+    color: #3F51B5; /* You can use Vidyard's brand color here */
+    margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
+    font-weight: normal; /* Adjust as needed */
+}
+.checkbox-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-field input {
+    position: relative;
+}
+
+.checkbox-field {
+    position: relative;
+    /* Other styles */
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 180px;
+    background-color: darkmagenta;
+    color: white;
+    text-align: center;
+    border-radius: 20px;
+    padding: 15px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -90px; /* Use half of the width value */
+    opacity: 0.5;
+    transition: opacity 0.3s;
+
+}
+
+.checkbox-field:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.color-input-wrapper:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.material-input:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="header">
+            <img src="https://www.productboard.com/wp-content/uploads/2020/06/vidyard.png" alt="Vidyard Logo" class="vidyard-logo">
+            <h1>Vidyard Link Generator</h1>
+        </div>
+        <div class="material-input">
+            <input type="text" id="vidyardLink" placeholder=" " required>
+            <label>Paste Vidyard Sharing URL Here</label>
+        </div>
+        <div class="dimensions-container">
+            <div class="material-input">
+                <input type="number" id="width" placeholder="Width (e.g., 1280)" min="0">
+                <label>Width</label>
+                <span class="tooltip">Overrides the width of the player.</span>
+            </div>
+            <div class="material-input">
+                <input type="number" id="height" placeholder="Height (e.g., 720)" min="0">
+                <label>Height</label>
+                <span class="tooltip">Overrides the height of the player.</span>
+            </div>
+        </div>
+        <div class="checkbox-container">
+            <h3>Standard Controls</h3>
+            <div class="checkbox-field">
+                <input type="checkbox" id="autoplay">
+                <label for="autoplay">Autoplay</label>
+                <span class="tooltip">Automatically start the video when the page loads.</span>
+            </div>
+            <div class="checkbox-field">
+                <input type="checkbox" id="hidden_controls">
+                <label for="hidden_controls">Hide Player Controls</label>
+                <span class="tooltip">Hides the player controls from viewers.</span>
+            </div>
+            <div class="checkbox-field">
+                <input type="checkbox" id="viral_sharing">
+                <label for="viral_sharing">Viral Sharing</label>
+                <span class="tooltip">Removes the social network sharing button from the player.</span>
+            </div>
+            <div class="checkbox-field">
+                <input type="checkbox" id="playlist_always_open">
+                <label for="playlist_always_open">Playlist Always Open</label>
+                <span class="tooltip">Forces the playlist to always display.</span>
+            </div>
+            <div class="checkbox-field">
+                <input type="checkbox" id="loop">
+                <label for="loop">Loop</label>
+                <span class="tooltip">Replays the current video upon completion.</span>
+            </div>
+            <div class="color-picker-container">
+                <div class="color-input-wrapper">
+                    <label class="color-label">Player Color:</label>
+                    <label for="color" class="color-input-label">Choose Color</label>
+                    <input type="color" id="color" class="color-input" onchange="colorChanged('color')">
+                    <span class="tooltip">Select a color for player control bar</span>
+                </div>
+                <div class="color-input-wrapper">
+                    <label class="color-label">Play Button Color:</label>
+                    <label for="play_button_color" class="color-input-label">Choose Color</label>
+                    <input type="color" id="play_button_color" class="color-input" onchange="colorChanged('play_button_color')">
+                    <span class="tooltip">Select a color for play button in thumbnail</span>
+                </div>
+            </div>
+        </div>
+        <div class="checkbox-container">
+            <!-- Advanced Controls -->
+            <h3>Advanced Controls</h3>
+            <div class="checkbox-field">
+                <input type="checkbox" id="disable_ctas">
+                <label for="disable_ctas">Disable CTAs</label>
+                <span class="tooltip">Prevents Events from loading when the player loads.</span>
+            </div>
+            <div class="checkbox-field">
+                <input type="checkbox" id="disable_analytics">
+                <label for="disable_analytics">Disable Analytics</label>
+                <span class="tooltip">Disables collection of viewer data by the player.</span>
+            </div>
+            <div class="checkbox-field">
+                <input type="checkbox" id="muted">
+                <label for="muted">Muted</label>
+                <span class="tooltip">Mutes the player.</span>
+            </div>
+            <div class="checkbox-field">
+                <input type="checkbox" id="hide_playlist">
+                <label for="hide_playlist">Hide Playlist</label>
+                <span class="tooltip">Removes the playlist icon; playlist cannot be accessed.</span>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <div class="material-input">
+                <select id="preload">
+                    <option value="">Select Preload Option</option>
+                    <option value="none">None</option>
+                    <option value="metadata">Metadata</option>
+                    <option value="auto">Auto</option>
+                </select>
+                <label>Preload</label>
+                <span class="tooltip">none - indicates that video files should not begin to download prior to playback.<br><br>
+                    metadata - indicates that a small amount of information is downloaded that prepares the video for playback (e.g. video length).<br><br>
+                    auto - indicates that the video file can begin to download prior to playback.</span>
+            </div>
+            <div class="material-input">
+                <select id="quality">
+                    <option value="">Select Quality</option>
+                    <option value="360p">360p</option>
+                    <option value="480p">480p</option>
+                    <option value="720p">720p</option>
+                    <option value="1080p">1080p</option>
+                </select>
+                <label>Quality</label>
+                <span class="tooltip">Force the viewer to stream at the given resolution. The viewer will still have the ability to change to a higher or lower resolution using the player controls. The player will also still use intelligent resolution selection to automatically lower the resolution in the case of extended buffering.</span>
+            </div>
+            <div class="material-input">
+                <select id="speed">
+                    <option value="">Select Speed</option>
+                    <option value="2">2x</option>
+                    <option value="1.5">1.5x</option>
+                    <option value="1.25">1.25x</option>
+                    <option value="1">Normal</option>
+                    <option value="0.5">0.5x</option>
+                </select>
+                <label>Speed</label>
+                <span class="tooltip">Sets the speed of playback.</span>
+            </div>
+        </div>
+        <div class="button-container">
+            <button onclick="generateEmbedCode()">Generate Inline Embed</button>
+            <button onclick="generateLightboxEmbedCode()">Generate Lightbox Embed</button>
+            <button onclick="generateIframeEmbedCode()">Generate iFrame Embed Code</button>
+            <button onclick="generateSharingPageURL()">Generate Sharing Page URL</button>
+            <button onclick="copyToClipboard()">Copy to Clipboard </button>
+            <button id="openPreviewBtn" onclick="openCodePenPreview()" style="display: none;">Open CodePen Preview</button>
+            <button id="previewSharingPageBtn" onclick="previewSharingPage()" style="display: none;">Preview Sharing Page</button>
+        </div>
+        <textarea id="outputArea" readonly></textarea>
+    </div>
+    <script>
+    function generateSharingPageURL() {
+        const vidyardLink = document.getElementById('vidyardLink').value.trim();
+        if (!vidyardLink.trim()) {
+            alert('The sharing page URL is empty. Please generate it first.');
+            return;
+        }
+        const autoplay = document.getElementById('autoplay').checked ? 'autoplay=1' : '';
+        const previewSharingPageBtn = document.getElementById('previewSharingPageBtn');
+        previewSharingPageBtn.style.display = 'inline-block';
+
+        const openPreviewBtn = document.getElementById('openPreviewBtn');
+        openPreviewBtn.style.display = 'none';
+
+        const disable_ctas = document.getElementById('disable_ctas').checked ? 'disable_ctas=1' : '';
+        const hidden_controls = document.getElementById('hidden_controls').checked ? 'hidden_controls=1' : '';
+        const viral_sharing = document.getElementById('viral_sharing').checked ? 'viral_sharing=0' : '';
+        let color = document.getElementById('color').value;
+        let play_button_color = document.getElementById('play_button_color').value;
+
+        color = (color && color !== '#000000') ? `color=${color.replace('#', '')}` : '';
+        play_button_color = (play_button_color && play_button_color !== '#000000') ? `play_button_color=${play_button_color.replace('#', '')}` : '';
+
+        const preload = document.getElementById('preload').value ? `preload=${document.getElementById('preload').value}` : '';
+        const playlist_always_open = document.getElementById('playlist_always_open').checked ? 'playlist_always_open=1' : '';
+        // Add new checkbox values
+        const loop = document.getElementById('loop').checked ? 'loop=1' : '';
+        const disable_analytics = document.getElementById('disable_analytics').checked ? 'disable_analytics=1' : '';
+        const muted = document.getElementById('muted').checked ? 'muted=1' : '';
+        const hide_playlist = document.getElementById('hide_playlist').checked ? 'hide_playlist=1' : '';
+
+        // Add new select values
+        const quality = document.getElementById('quality').value ? `quality=${document.getElementById('quality').value}` : '';
+        const speed = document.getElementById('speed').value ? `speed=${document.getElementById('speed').value}` : '';
+
+        // Create an array of parameters and filter out empty values
+        let paramsArray = [
+            autoplay, disable_ctas, hidden_controls, viral_sharing,
+            color, play_button_color, preload, playlist_always_open,
+            loop, disable_analytics, muted, hide_playlist, quality, speed
+        ].filter(param => param);
+
+        // Construct the query parameters string
+        let queryParams = '';
+        paramsArray.forEach((param, index) => {
+            queryParams += (index === 0 ? '' : '&') + param;
+        });
+
+        // Determine if vidyardLink already contains query parameters
+        const separator = vidyardLink.includes('?') && !vidyardLink.endsWith('?') ? '&' : '';
+        const sharingPageURL = vidyardLink + (queryParams ? separator + queryParams : '');
+        document.getElementById('outputArea').value = sharingPageURL;
+    }
+
+
+
+
+
+
+
+    function generateEmbedCode() {
+        const vidyardLink = document.getElementById('vidyardLink').value.trim();
+
+        if (!vidyardLink.trim()) {
+            alert('The sharing page URL is empty. Please generate it first.');
+            return;
+        }
+
+        // Split the URL at '?' and take the first part, then extract the uuid
+        const uuid = vidyardLink.split('?')[0].split('/').pop();
+
+
+        const openPreviewBtn = document.getElementById('openPreviewBtn');
+        openPreviewBtn.style.display = 'inline-block';
+
+        const previewSharingPageBtn = document.getElementById('previewSharingPageBtn');
+        previewSharingPageBtn.style.display = 'none';
+
+        const widthInput = document.getElementById('width').value;
+        const heightInput = document.getElementById('height').value;
+        const width = widthInput ? `${widthInput}px` : '100%'; // Sets width to input value or defaults to 100%
+        const height = heightInput ? `height: ${heightInput}px;` : ''; // Sets height if provided
+
+        const autoplay = document.getElementById('autoplay').checked ? 'data-autoplay="1"' : '';
+        const disable_ctas = document.getElementById('disable_ctas').checked ? 'data-disable_ctas="1"' : '';
+        const hidden_controls = document.getElementById('hidden_controls').checked ? 'data-hidden_controls="1"' : '';
+        const viral_sharing = document.getElementById('viral_sharing').checked ? 'data-viral_sharing="0"' : '';
+        let color = document.getElementById('color').value;
+        let play_button_color = document.getElementById('play_button_color').value;
+
+        color = (color && color !== '#000000') ? `data-color="${color.replace('#', '')}"` : '';
+        play_button_color = (play_button_color && play_button_color !== '#000000') ? `data-play_button_color="${play_button_color.replace('#', '')}"` : '';
+
+        const preload = document.getElementById('preload').value ? `data-preload="${document.getElementById('preload').value}"` : '';
+        const playlist_always_open = document.getElementById('playlist_always_open').checked ? 'data-playlist_always_open="1"' : '';
+        const loop = document.getElementById('loop').checked ? 'data-loop="1"' : '';
+        const disable_analytics = document.getElementById('disable_analytics').checked ? 'data-disable_analytics="1"' : '';
+        const muted = document.getElementById('muted').checked ? 'data-muted="1"' : '';
+        const hide_playlist = document.getElementById('hide_playlist').checked ? 'data-hide_playlist="1"' : '';
+
+        // Add data- prefixed for the new select values
+        const quality = document.getElementById('quality').value ? `data-quality="${document.getElementById('quality').value}"` : '';
+        const speed = document.getElementById('speed').value ? `data-speed="${document.getElementById('speed').value}"` : '';
+
+        // Combine all data attributes
+        const dataAttributes = [
+                autoplay, disable_ctas, hidden_controls, viral_sharing,
+                color, play_button_color, preload, playlist_always_open,
+                loop, disable_analytics, muted, hide_playlist, quality, speed
+            ]
+            .filter(attr => attr)
+            .map(attr => `\n  ${attr}`)
+            .join('');
+
+        // Construct the embed code with additional parameters
+        const embedCode = `<!-- The script tag should live in the head of your page if at all possible -->
+<script type="text/javascript" async src="https://play.vidyard.com/embed/v4.js"><\/script>
+
+<!-- Put this wherever you would like your player to appear -->
+<img
+  style="width: ${width}; ${height} margin: auto; display: block;"
+  class="vidyard-player-embed"
+  src="https://play.vidyard.com/${uuid}.jpg"
+  data-uuid="${uuid}"
+  data-v="4"
+  data-type="inline"
+  ${dataAttributes}
+/>
+`;
+        document.getElementById('outputArea').value = embedCode;
+    }
+
+
+
+    function generateLightboxEmbedCode() {
+        const vidyardLink = document.getElementById('vidyardLink').value.trim();
+
+        if (!vidyardLink.trim()) {
+            alert('The sharing page URL is empty. Please generate it first.');
+            return;
+        }
+
+        // Split the URL at '?' and take the first part, then extract the uuid
+        const uuid = vidyardLink.split('?')[0].split('/').pop();
+        const openPreviewBtn = document.getElementById('openPreviewBtn');
+        openPreviewBtn.style.display = 'inline-block';
+
+        const previewSharingPageBtn = document.getElementById('previewSharingPageBtn');
+        previewSharingPageBtn.style.display = 'none';
+
+        const widthInput = document.getElementById('width').value;
+        const heightInput = document.getElementById('height').value;
+        const width = widthInput ? `${widthInput}px` : '100%'; // Sets width to input value or defaults to 100%
+        const height = heightInput ? `height: ${heightInput}px;` : ''; // Sets height if provided
+
+        const autoplay = document.getElementById('autoplay').checked ? 'data-autoplay="1"' : '';
+        const disable_ctas = document.getElementById('disable_ctas').checked ? 'data-disable_ctas="1"' : '';
+        const hidden_controls = document.getElementById('hidden_controls').checked ? 'data-hidden_controls="1"' : '';
+        const viral_sharing = document.getElementById('viral_sharing').checked ? 'data-viral_sharing="0"' : '';
+        let color = document.getElementById('color').value;
+        let play_button_color = document.getElementById('play_button_color').value;
+
+        color = (color && color !== '#000000') ? `data-color="${color.replace('#', '')}"` : '';
+        play_button_color = (play_button_color && play_button_color !== '#000000') ? `data-play_button_color="${play_button_color.replace('#', '')}"` : '';
+
+        const preload = document.getElementById('preload').value ? `data-preload="${document.getElementById('preload').value}"` : '';
+        const playlist_always_open = document.getElementById('playlist_always_open').checked ? 'data-playlist_always_open="1"' : '';
+        const loop = document.getElementById('loop').checked ? 'data-loop="1"' : '';
+        const disable_analytics = document.getElementById('disable_analytics').checked ? 'data-disable_analytics="1"' : '';
+        const muted = document.getElementById('muted').checked ? 'data-muted="1"' : '';
+        const hide_playlist = document.getElementById('hide_playlist').checked ? 'data-hide_playlist="1"' : '';
+
+        // Add data- prefixed for the new select values
+        const quality = document.getElementById('quality').value ? `data-quality="${document.getElementById('quality').value}"` : '';
+        const speed = document.getElementById('speed').value ? `data-speed="${document.getElementById('speed').value}"` : '';
+
+        // Combine all data attributes
+        const dataAttributes = [
+                autoplay, disable_ctas, hidden_controls, viral_sharing,
+                color, play_button_color, preload, playlist_always_open,
+                loop, disable_analytics, muted, hide_playlist, quality, speed
+            ]
+            .filter(attr => attr)
+            .map(attr => `\n  ${attr}`)
+            .join('');
+
+        // Construct the embed code with additional parameters
+        const embedCode = `<!-- The script tag should live in the head of your page if at all possible -->
+<script type="text/javascript" async src="https://play.vidyard.com/embed/v4.js"><\/script>
+
+<!-- Put this wherever you would like your player to appear -->
+<img
+  style="width: ${width}; ${height} margin: auto; display: block;"
+  class="vidyard-player-embed"
+  src="https://play.vidyard.com/${uuid}.jpg"
+  data-uuid="${uuid}"
+  data-v="4"
+  data-type="lightbox"
+  ${dataAttributes}
+/>
+`;
+        document.getElementById('outputArea').value = embedCode;
+    }
+
+
+    function generateIframeEmbedCode() {
+        const vidyardLink = document.getElementById('vidyardLink').value.trim();
+
+        if (!vidyardLink.trim()) {
+            alert('The sharing page URL is empty. Please generate it first.');
+            return;
+        }
+
+        const uuid = vidyardLink.split('?')[0].split('/').pop();
+
+                const openPreviewBtn = document.getElementById('openPreviewBtn');
+        openPreviewBtn.style.display = 'inline-block';
+
+        const previewSharingPageBtn = document.getElementById('previewSharingPageBtn');
+        previewSharingPageBtn.style.display = 'none';
+
+        // Attributes
+        const autoplay = document.getElementById('autoplay').checked ? 'autoplay=1' : '';
+        const disable_ctas = document.getElementById('disable_ctas').checked ? 'disable_ctas=1' : '';
+        const hidden_controls = document.getElementById('hidden_controls').checked ? 'hidden_controls=1' : '';
+        const viral_sharing = document.getElementById('viral_sharing').checked ? 'viral_sharing=0' : '';
+        const loop = document.getElementById('loop').checked ? 'loop=1' : '';
+        const disable_analytics = document.getElementById('disable_analytics').checked ? 'disable_analytics=1' : '';
+        const muted = document.getElementById('muted').checked ? 'muted=1' : '';
+        const hide_playlist = document.getElementById('hide_playlist').checked ? 'hide_playlist=1' : '';
+        const preload = document.getElementById('preload').value ? `preload=${document.getElementById('preload').value}` : '';
+        const playlist_always_open = document.getElementById('playlist_always_open').checked ? 'playlist_always_open=1' : '';
+        const quality = document.getElementById('quality').value ? `quality=${document.getElementById('quality').value}` : '';
+        const speed = document.getElementById('speed').value ? `speed=${document.getElementById('speed').value}` : '';
+
+        // Combine all query parameters
+        const queryParameters = [
+            autoplay, disable_ctas, hidden_controls, viral_sharing, loop, disable_analytics,
+            muted, hide_playlist, preload, playlist_always_open, quality, speed
+        ].filter(param => param).join('&');
+
+        // Constructing iframe src URL
+        const iframeSrc = `//play.vidyard.com/${uuid}.html?${queryParameters}`;
+    const width = document.getElementById('width').value || '1280'; // Default width
+    const height = document.getElementById('height').value || '720'; // Default height
+
+
+        // Construct the embed code with additional parameters
+        const iframeEmbedCode = `<iframe class="vidyard_iframe" title="Vidyard Video Player" src="${iframeSrc}" width="${width}" height="${height}" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen></iframe>`;
+
+        document.getElementById('outputArea').value = iframeEmbedCode;
+    }
+
+
+
+    function previewSharingPage() {
+        const sharingPageURL = document.getElementById('outputArea').value; // Get the generated URL
+
+        if (!sharingPageURL.trim()) {
+            alert('The sharing page URL is empty. Please generate it first.');
+            return;
+        }
+
+        // Open the URL in a new tab
+        window.open(sharingPageURL, '_blank');
+    }
+
+    function colorChanged(inputId) {
+        const colorInput = document.getElementById(inputId);
+        const color = colorInput.value;
+        const colorLabel = document.querySelector(`label[for="${inputId}"]`);
+
+        // Update the button's (label's) background to the selected color
+        colorLabel.style.backgroundColor = color;
+        colorLabel.textContent = color; // Optionally show the hex color code as text
+        colorLabel.style.color = getContrastYIQ(color);
+
+        // If you have a color preview element, update its background too
+        // const colorPreview = document.getElementById(inputId + '-preview');
+        // if (colorPreview) {
+        //     colorPreview.style.backgroundColor = color;
+        // }
+    }
+
+    function getContrastYIQ(hexcolor) {
+        hexcolor = hexcolor.replace("#", "");
+        const r = parseInt(hexcolor.substr(0, 2), 16);
+        const g = parseInt(hexcolor.substr(2, 2), 16);
+        const b = parseInt(hexcolor.substr(4, 2), 16);
+        const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+        return (yiq >= 128) ? 'black' : 'white';
+    }
+
+
+    function copyToClipboard() {
+        const clipArea = document.getElementById('outputArea');
+        const cpipAreatrim = clipArea.value
+
+        if (!cpipAreatrim.trim()) {
+            alert('Nothing to copy');
+            return;
+        }
+        clipArea.select();
+        document.execCommand('copy');
+        alert('Copied to clipboard!');
+    }
+
+
+    function openCodePenPreview() {
+        const embedCodeTextArea = document.getElementById('outputArea');
+        const embedCode = embedCodeTextArea.value;
+
+        if (!embedCode.trim()) {
+            alert('Please generate the embed code first.');
+            return;
+        }
+
+        const codepenFormData = {
+            title: 'CodePen Preview',
+            html: embedCode,
+        };
+
+        const codepenForm = document.createElement('form');
+        codepenForm.action = 'https://codepen.io/pen/define/';
+        codepenForm.method = 'POST';
+        codepenForm.target = '_blank';
+        codepenForm.style.display = 'none';
+
+        const dataInput = document.createElement('input');
+        dataInput.type = 'hidden';
+        dataInput.name = 'data';
+        dataInput.value = JSON.stringify(codepenFormData);
+
+        codepenForm.appendChild(dataInput);
+        document.body.appendChild(codepenForm);
+
+        codepenForm.submit();
+        document.body.removeChild(codepenForm);
+    }
+    </script>
+</body>
+
+</html>
