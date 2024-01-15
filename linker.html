@@ -3,8 +3,19 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Vidyard Embed Code Generator</title>
+    <title>Vidyard Custom Link Generator</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://www.vidyard.com/wp-content/uploads/fbrfg/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="https://www.vidyard.com/wp-content/uploads/fbrfg/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="https://www.vidyard.com/wp-content/uploads/fbrfg/favicon-48x48.png" sizes="48x48" type="image/png">
+    <link rel="icon" href="https://www.vidyard.com/wp-content/uploads/fbrfg/favicon-96x96.png" sizes="96x96" type="image/png">
+    <link rel="icon" href="https://www.vidyard.com/wp-content/uploads/fbrfg/favicon-144x144.png" sizes="144x144" type="image/png">
+    <link rel="icon" href="https://www.vidyard.com/wp-content/uploads/fbrfg/favicon-192x192.png" sizes="192x192" type="image/png">
+    <link rel="icon" href="https://www.vidyard.com/wp-content/uploads/fbrfg/favicon-256x256.png" sizes="256x256" type="image/png">
+    <link rel="icon" href="https://www.vidyard.com/wp-content/uploads/fbrfg/favicon-384x384.png" sizes="384x384" type="image/png">
+    <link rel="icon" href="https://www.vidyard.com/wp-content/uploads/fbrfg/favicon-512x512.png" sizes="512x512" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.vidyard.com/wp-content/uploads/fbrfg/apple-touch-icon.png">
+    <link rel="shortcut icon" href="https://www.vidyard.com/wp-content/uploads/fbrfg/favicon.ico">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -210,125 +221,148 @@
              justify-content: space-between;
              gap: 10px; /* Adjust the gap size to your preference */
         }
+        
         .color-picker-container {
-    display: flex;
-    justify-content: start; /* Align to the start of the container */
-    gap: 10px; /* Space between the color pickers */
-}
+        display: flex;
+        justify-content: start; /* Align to the start of the container */
+        gap: 10px; /* Space between the color pickers */
+        }
 
-.color-input-wrapper {
-    flex-basis: 50%; /* Each color picker takes up half the width */
-}
+        .color-input-wrapper {
+            flex-basis: 50%; /* Each color picker takes up half the width */
+        }
 
-.color-label {
-    margin-right: 10px;
-    font-size: 18px;
-    white-space: nowrap; /* Prevent the label from wrapping */
-}
+        .color-label {
+            margin-right: 10px;
+            font-size: 18px;
+            white-space: nowrap; /* Prevent the label from wrapping */
+        }
 
-.color-input {
-    width: calc(100% - 10px); /* Adjust width accounting for the margin */
-    cursor: pointer;
-    border: 2px solid #9E9E9E;
-    border-radius: 4px;
-    height: 36px;
-}
-.dimensions-container {
-    display: flex;
-    justify-content: start; /* Align to the start of the container */
-    gap: 10px; /* Space between the width and height inputs */
-}
+        .color-input {
+            width: calc(100% - 10px); /* Adjust width accounting for the margin */
+            cursor: pointer;
+            border: 2px solid #9E9E9E;
+            border-radius: 4px;
+            height: 36px;
+        }
+        .dimensions-container {
+            display: flex;
+            justify-content: start; /* Align to the start of the container */
+            gap: 10px; /* Space between the width and height inputs */
+        }
 
-.material-input {
-    flex-basis: 100%; /* Each input takes up half the width */
-    max-width: 100%; /* Prevent the input from exceeding half the container's width */
-}
+        .material-input {
+            flex-basis: 100%; /* Each input takes up half the width */
+            max-width: 100%; /* Prevent the input from exceeding half the container's width */
+        }
 
-/* Adjust the width of the input fields within the .material-input div */
-.material-input input {
-    width: calc(100% - 50px); /* Subtracting the padding and borders if any */
-}
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px; /* Adjust as needed */
-}
+        /* Adjust the width of the input fields within the .material-input div */
+        .material-input input {
+            width: calc(100% - 50px); /* Subtracting the padding and borders if any */
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px; /* Adjust as needed */
+        }
 
-.vidyard-logo {
-    height: 50px; /* Adjust as needed */
-    width: auto; /* Adjust if you have a specific width in mind */
-}
+        .vidyard-logo {
+            height: 50px; /* Adjust as needed */
+            width: auto; /* Adjust if you have a specific width in mind */
+        }
 
-/* Style for the heading */
-.header h1 {
-    font-size: 36px;
-    color: #3F51B5; /* You can use Vidyard's brand color here */
-    margin: 0; /* Removes default margin */
-    padding: 0; /* Removes default padding */
-    font-weight: normal; /* Adjust as needed */
-}
-.checkbox-field {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+        /* Style for the heading */
+        .header h1 {
+            font-size: 36px;
+            color: #3F51B5; /* You can use Vidyard's brand color here */
+            margin: 0; /* Removes default margin */
+            padding: 0; /* Removes default padding */
+            font-weight: normal; /* Adjust as needed */
+        }
+        .checkbox-field {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.checkbox-field input {
-    position: relative;
-}
+        .checkbox-field input {
+            position: relative;
+        }
 
-.checkbox-field {
-    position: relative;
-    /* Other styles */
-}
+        .checkbox-field {
+            position: relative;
+            /* Other styles */
+        }
 
-.tooltip {
-    visibility: hidden;
-    width: 180px;
-    background-color: darkmagenta;
-    color: white;
-    text-align: center;
-    border-radius: 20px;
-    padding: 15px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -90px; /* Use half of the width value */
-    opacity: 0.5;
-    transition: opacity 0.3s;
+        .tooltip {
+            visibility: hidden;
+            width: 180px;
+            background-color: darkmagenta;
+            color: white;
+            text-align: center;
+            border-radius: 20px;
+            padding: 15px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -90px; /* Use half of the width value */
+            opacity: 0.5;
+            transition: opacity 0.3s;
 
-}
+        }
 
-.checkbox-field:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-}
+        .checkbox-field:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
 
-.color-input-wrapper:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-}
+        .color-input-wrapper:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
 
-.material-input:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-}
+        .material-input:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        #openPreviewBtn {
+            background-color: limegreen;
+        }
+
+        #previewSharingPageBtn {
+            background-color: limegreen;
+        }
+       
+        #copyToClipboard {
+            background-color: limegreen;
+        }
+
     </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KMQPDDDQWS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-KMQPDDDQWS');
+    </script>
 </head>
 
 <body>
     <div class="card">
         <div class="header">
             <img src="https://www.productboard.com/wp-content/uploads/2020/06/vidyard.png" alt="Vidyard Logo" class="vidyard-logo">
-            <h1>Vidyard Link Generator</h1>
+            <h1>Vidyard Custom Link Generator</h1>
         </div>
         <div class="material-input">
             <input type="text" id="vidyardLink" placeholder=" " required>
-            <label>Paste Vidyard Sharing URL Here</label>
+            <label>Paste Vidyard Sharing Page URL Here</label>
         </div>
         <div class="dimensions-container">
             <div class="material-input">
@@ -448,15 +482,23 @@
         <div class="button-container">
             <button onclick="generateEmbedCode()">Generate Inline Embed</button>
             <button onclick="generateLightboxEmbedCode()">Generate Lightbox Embed</button>
-            <button onclick="generateIframeEmbedCode()">Generate iFrame Embed Code</button>
+            <button onclick="generateIframeEmbedCode()">Generate iFrame Embed</button>
             <button onclick="generateSharingPageURL()">Generate Sharing Page URL</button>
-            <button onclick="copyToClipboard()">Copy to Clipboard </button>
+            <button id="copyToClipboard" onclick="copyToClipboard()">Copy to Clipboard </button>
             <button id="openPreviewBtn" onclick="openCodePenPreview()" style="display: none;">Open CodePen Preview</button>
             <button id="previewSharingPageBtn" onclick="previewSharingPage()" style="display: none;">Preview Sharing Page</button>
         </div>
         <textarea id="outputArea" readonly></textarea>
     </div>
     <script>
+    function trackEvent(eventName) {
+        gtag('event', eventName, {
+            'event_category': 'Button Click',
+            'event_label': eventName
+        });
+    }
+
+
     function generateSharingPageURL() {
         const vidyardLink = document.getElementById('vidyardLink').value.trim();
         if (!vidyardLink.trim()) {
@@ -466,6 +508,8 @@
         const autoplay = document.getElementById('autoplay').checked ? 'autoplay=1' : '';
         const previewSharingPageBtn = document.getElementById('previewSharingPageBtn');
         previewSharingPageBtn.style.display = 'inline-block';
+
+
 
         const openPreviewBtn = document.getElementById('openPreviewBtn');
         openPreviewBtn.style.display = 'none';
@@ -534,10 +578,24 @@
         const previewSharingPageBtn = document.getElementById('previewSharingPageBtn');
         previewSharingPageBtn.style.display = 'none';
 
-        const widthInput = document.getElementById('width').value;
-        const heightInput = document.getElementById('height').value;
-        const width = widthInput ? `${widthInput}px` : '100%'; // Sets width to input value or defaults to 100%
-        const height = heightInput ? `height: ${heightInput}px;` : ''; // Sets height if provided
+        const widthValue = document.getElementById('width').value;
+        const heightValue = document.getElementById('height').value;
+        const widthAttr = widthValue ? `data-width="${widthValue}"` : '';
+        const heightAttr = heightValue ? `data-height="${heightValue}"` : '';
+
+        let style = 'style="width: 100%; margin: auto; display: block;';
+
+        if (widthValue) {
+            style += ` max-width: ${widthValue}px;`;
+        }
+        if (heightValue) {
+            style += ` max-height: ${heightValue}px;`;
+        }
+        style += '"'; // Closing the style attribute
+
+
+
+
 
         const autoplay = document.getElementById('autoplay').checked ? 'data-autoplay="1"' : '';
         const disable_ctas = document.getElementById('disable_ctas').checked ? 'data-disable_ctas="1"' : '';
@@ -562,13 +620,11 @@
 
         // Combine all data attributes
         const dataAttributes = [
-                autoplay, disable_ctas, hidden_controls, viral_sharing,
-                color, play_button_color, preload, playlist_always_open,
-                loop, disable_analytics, muted, hide_playlist, quality, speed
-            ]
-            .filter(attr => attr)
-            .map(attr => `\n  ${attr}`)
-            .join('');
+            autoplay, disable_ctas, hidden_controls, viral_sharing,
+            color, play_button_color, preload, playlist_always_open,
+            loop, disable_analytics, muted, hide_playlist, quality, speed,
+            widthAttr, heightAttr
+        ].filter(attr => attr).map(attr => `\n  ${attr}`).join('');
 
         // Construct the embed code with additional parameters
         const embedCode = `<!-- The script tag should live in the head of your page if at all possible -->
@@ -576,7 +632,7 @@
 
 <!-- Put this wherever you would like your player to appear -->
 <img
-  style="width: ${width}; ${height} margin: auto; display: block;"
+  ${style}
   class="vidyard-player-embed"
   src="https://play.vidyard.com/${uuid}.jpg"
   data-uuid="${uuid}"
@@ -606,10 +662,20 @@
         const previewSharingPageBtn = document.getElementById('previewSharingPageBtn');
         previewSharingPageBtn.style.display = 'none';
 
-        const widthInput = document.getElementById('width').value;
-        const heightInput = document.getElementById('height').value;
-        const width = widthInput ? `${widthInput}px` : '100%'; // Sets width to input value or defaults to 100%
-        const height = heightInput ? `height: ${heightInput}px;` : ''; // Sets height if provided
+        const widthValue = document.getElementById('width').value;
+        const heightValue = document.getElementById('height').value;
+        const widthAttr = widthValue ? `data-width="${widthValue}"` : '';
+        const heightAttr = heightValue ? `data-height="${heightValue}"` : '';
+
+        let style = 'style="width: 100%; margin: auto; display: block;';
+
+        if (widthValue) {
+            style += ` max-width: ${widthValue}px;`;
+        }
+        if (heightValue) {
+            style += ` max-height: ${heightValue}px;`;
+        }
+        style += '"'; // Closing the style attribute
 
         const autoplay = document.getElementById('autoplay').checked ? 'data-autoplay="1"' : '';
         const disable_ctas = document.getElementById('disable_ctas').checked ? 'data-disable_ctas="1"' : '';
@@ -636,7 +702,7 @@
         const dataAttributes = [
                 autoplay, disable_ctas, hidden_controls, viral_sharing,
                 color, play_button_color, preload, playlist_always_open,
-                loop, disable_analytics, muted, hide_playlist, quality, speed
+                loop, disable_analytics, muted, hide_playlist, quality, speed, widthAttr, heightAttr
             ]
             .filter(attr => attr)
             .map(attr => `\n  ${attr}`)
@@ -648,7 +714,7 @@
 
 <!-- Put this wherever you would like your player to appear -->
 <img
-  style="width: ${width}; ${height} margin: auto; display: block;"
+  ${style}
   class="vidyard-player-embed"
   src="https://play.vidyard.com/${uuid}.jpg"
   data-uuid="${uuid}"
@@ -671,7 +737,7 @@
 
         const uuid = vidyardLink.split('?')[0].split('/').pop();
 
-                const openPreviewBtn = document.getElementById('openPreviewBtn');
+        const openPreviewBtn = document.getElementById('openPreviewBtn');
         openPreviewBtn.style.display = 'inline-block';
 
         const previewSharingPageBtn = document.getElementById('previewSharingPageBtn');
@@ -699,8 +765,8 @@
 
         // Constructing iframe src URL
         const iframeSrc = `//play.vidyard.com/${uuid}.html?${queryParameters}`;
-    const width = document.getElementById('width').value || '1280'; // Default width
-    const height = document.getElementById('height').value || '720'; // Default height
+        const width = document.getElementById('width').value || '1280'; // Default width
+        const height = document.getElementById('height').value || '720'; // Default height
 
 
         // Construct the embed code with additional parameters
